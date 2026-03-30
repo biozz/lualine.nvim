@@ -74,8 +74,8 @@ function M.show_notices()
     vim.cmd('normal q')
     return
   end
-  local notice = vim.tbl_flatten(persistent_notices)
-  notice = vim.list_extend(notice, vim.tbl_flatten(notices))
+  local notice = vim.iter(persistent_notices):flatten():totable()
+  notice = vim.list_extend(notice, vim.iter(notices):flatten():totable())
   vim.fn.appendbufline(bufnr, 0, notice)
 
   vim.fn.deletebufline(bufnr, #notice, vim.fn.line('$'))
